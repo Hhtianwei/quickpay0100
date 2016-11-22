@@ -30,11 +30,13 @@ public class SDKUtil {
 		if (isEmpty(encoding)) {
 			encoding = "UTF-8";
 		}
+		
 		// 设置签名证书序列
 		data.put(SDKConstants.param_certId, CertUtil.getSignCertId());
 		// 将Map信息转换成key1=value1&key2=value2的形
 		String stringData = coverMap2String(data);
 		LogUtil.writeLog("待签名请求报文串:[" + stringData + "]");
+		
 		/**
 		 * 签名\base64编码
 		 */

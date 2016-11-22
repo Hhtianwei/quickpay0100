@@ -12,6 +12,10 @@
 		</div>
 		<ul>
 			<li><a href="pages/openAndConsume.jsp">place order</a></li>
+			
+			<li><a href="pages/query.jsp">query order</a></li>
+			
+			<li><a href="pages/openAndConsume.jsp">refund order</a></li>
 		</ul>
 	</div>
 </body>

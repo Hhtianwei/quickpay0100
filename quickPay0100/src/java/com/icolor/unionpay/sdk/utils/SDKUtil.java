@@ -352,7 +352,7 @@ public class SDKUtil {
 			String value = request.getParameter(en);
 			
 			// 在报文上送时，如果字段的值为空，则不上送<下面的处理为在获取所有参数数据时，判断若值为空，则删除这个字段
-			if (null == res.get(en) || "".equals(res.get(en))) {
+			if (null == value || "".equals(value)) {
 				continue;
 			}
 			res.put(en, value);

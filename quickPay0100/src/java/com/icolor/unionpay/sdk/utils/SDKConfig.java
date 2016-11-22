@@ -120,7 +120,7 @@ public class SDKConfig {
 	public void loadPropertiesFromSrc() {
 		InputStream in = null;
 		try {
-			LogUtil.writeLog("classpath: " +SDKConfig.class.getClassLoader().getResource("").getPath()+FILE_NAME);
+			LogUtil.writeLog("123 classpath: " +SDKConfig.class.getClassLoader().getResource("").getPath()+" aaaaaa " +FILE_NAME);
 			in = SDKConfig.class.getClassLoader()
 					.getResourceAsStream(FILE_NAME);
 			if (null != in) {
@@ -171,7 +171,6 @@ public class SDKConfig {
 				this.signCertType = value.trim();
 			}
 		} else {
-			// ��֤��ģʽ
 			this.singleMode = SDKConstants.FALSE_STRING;
 			LogUtil.writeLog("SingleMode:[" + this.singleMode + "]");
 		}

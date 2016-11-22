@@ -1,0 +1,9 @@
+eclipse.preferences.version=1
+encoding//src/java/com/icolor/unionpay/sdk/utils/SDKConfig.java=UTF-8
+encoding//src/java/com/icolor/web/servlet/IcolorCheckAccountServlet.java=UTF-8
+encoding//src/java/com/icolor/web/servlet/IcolorConsumeServlet.java=UTF-8
+encoding//src/java/com/icolor/web/servlet/IcolorOpenAndConsumeServlet.java=UTF-8
+encoding//src/java/com/icolor/web/servlet/IcolorSendConsumeSMSServlet.java=UTF-8
+encoding//src/resource/acp_sdk.properties=UTF-8
+encoding//src/resource/log4j.properties=UTF-8
+encoding/<project>=UTF-8

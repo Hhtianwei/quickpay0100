@@ -1,18 +1,3 @@
-/**
- *
- * Licensed Property to China UnionPay Co., Ltd.
- * 
- * (C) Copyright of China UnionPay Co., Ltd. 2010
- *     All Rights Reserved.
- *
- * 
- * Modification History:
- * =============================================================================
- *   Author         Date          Description
- *   ------------ ---------- ---------------------------------------------------
- *   xshu       2014-05-28       HTTP通信工具类
- * =============================================================================
- */
 package com.icolor.unionpay.sdk.utils;
 
 import java.io.BufferedReader;
@@ -79,11 +64,11 @@ public class HttpClient {
 	 * @param connectionTimeout HTTP连接超时时间
 	 * @param readTimeOut HTTP读写超时时间
 	 */
-	public HttpClient(String url, int connectionTimeout, int readTimeOut) {
+	public HttpClient(String url) {
 		try {
 			this.url = new URL(url);
-			this.connectionTimeout = connectionTimeout;
-			this.readTimeOut = readTimeOut;
+			this.connectionTimeout = SDKConfig.getConfig().getConnectionTimeout();
+			this.readTimeOut = SDKConfig.getConfig().getReadTimeout();
 		} catch (MalformedURLException e) {
 			LogUtil.writeErrorLog(e.getMessage(), e);
 		}
@@ -172,7 +157,7 @@ public class HttpClient {
 	private String response(final HttpURLConnection connection, String encoding)
 			throws URISyntaxException, IOException, Exception {
 		InputStream in = null;
-		StringBuilder sb = new StringBuilder(1024);
+		StringBuilder sb = new StringBuilder();
 		BufferedReader br = null;
 		try {
 			if (200 == connection.getResponseCode()) {

@@ -136,7 +136,7 @@ public class AcpService {
 		Map<String, String> rspData = new HashMap<String,String>();
 		LogUtil.writeLog("请求银联地址:" + reqUrl);
 		//发送后台请求数据
-		HttpClient hc = new HttpClient(reqUrl, 30000, 30000);
+		HttpClient hc = new HttpClient(reqUrl);
 		try {
 			int status = hc.send(reqData, encoding);
 			if (200 == status) {
@@ -165,7 +165,7 @@ public class AcpService {
 		
 		LogUtil.writeLog("请求银联地址:" + reqUrl);
 		//发送后台请求数据
-		HttpClient hc = new HttpClient(reqUrl, 30000, 30000);
+		HttpClient hc = new HttpClient(reqUrl);
 		try {
 			int status = hc.sendGet(encoding);
 			if (200 == status) {

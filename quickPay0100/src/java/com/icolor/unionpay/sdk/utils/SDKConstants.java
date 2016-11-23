@@ -349,13 +349,17 @@ public class SDKConstants {
 	
 	public static final String SIGNMETHOD = "01";
 	
-	public static final String TXNTYPE_QUERY ="78";
+	public static final String TXNTYPE_ACCOUNT_STATUS_QUERY ="78";
 	
 	public static final String TXNTYPE_PAY ="01";
 	
-	public static final String TXNTYPE_SEND_SMS="77";
+	public static final String TXNTYPE_QUERY ="00";
 	
+	public static final String TXNTYPE_SEND_SMS="77";
+
 	public static final String TXNSUBTYPE_BY_ACCOUNT = "00";
+	
+	public static final String TXNSUBTYPE_QUERY = "00";
 	
 	public static final String TXNSUBTYPE_CONSUME = "01";
 	
@@ -383,4 +387,5 @@ public class SDKConstants {
 	public static final String RESP_HANDLING="05";
 	
 	public static final String RESP_ACCOUNT_NOT_OPEND="77";
+
 }

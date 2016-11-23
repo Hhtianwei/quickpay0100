@@ -51,7 +51,7 @@ public class IcolorCheckAccountServlet  extends HttpServlet  {
 		contentData.put("version", QuickPayConstants.VERSION);                  //版本号
 		contentData.put("encoding", QuickPayConstants.ENCODING_UTF8);                //字符集编码 可以使用UTF-8,GBK两种方式
 		contentData.put("signMethod", SDKConstants.SIGNMETHOD);                           //签名方法 目前只支持01-RSA方式证书加密
-		contentData.put("txnType", SDKConstants.TXNTYPE_QUERY);                              //交易类型 78-开通查询
+		contentData.put("txnType", SDKConstants.TXNTYPE_ACCOUNT_STATUS_QUERY);                              //交易类型 78-开通查询
 		contentData.put("txnSubType", SDKConstants.TXNSUBTYPE_BY_ACCOUNT);                           //交易子类型 00-根据账号accNo查询(默认）
 		contentData.put("bizType", SDKConstants.BIZTYPE_CERTIFIED_PAYMENTS);                          //业务类型 认证支付2.0
 		contentData.put("channelType", SDKConstants.CHANNEL_TYPE_PC);                          //渠道类型07-PC

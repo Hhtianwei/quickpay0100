@@ -8,8 +8,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.abin.facade.ws.mail.function.FileOperation;
 import com.icolor.unionpay.sdk.utils.AcpService;
 import com.icolor.unionpay.sdk.utils.LogUtil;
+import com.icolor.unionpay.sdk.utils.SDKConfig;
 import com.icolor.unionpay.sdk.utils.SDKConstants;
 import com.icolor.unionpay.sdk.utils.SDKUtil;
 
@@ -51,6 +53,10 @@ public class IcolorBackendResponseServlet extends HttpServlet {
 			
 			if(SDKConstants.RESP_SUCCESS.equals(respCode)){
 				LogUtil.writeMessage("order:" + orderId +" paid successfully");
+				LogUtil.writeMessage(String.format("write order[%s] to file", orderId));
+				String txntime = valideData.get("txnTime");
+				String content = orderId +","+ txntime;
+				FileOperation.contentToTxt(SDKConfig.getConfig().getOrderFile(), content);
 			}else{
 				LogUtil.writeMessage("order:" + orderId +" paid failure,reqspCode:" + respCode + ",errorMsg is :" + respMsg);
 			}

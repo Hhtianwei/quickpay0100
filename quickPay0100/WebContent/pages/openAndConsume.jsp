@@ -159,7 +159,7 @@ a {
 
 </head>
 
-<body>
+<body style="background-color: #e5eecc;">
 	<form class="pay-form" method="post"
 		action="/quickPay0100/icolorOpenAndConsumeServlet">
 
@@ -173,11 +173,11 @@ a {
 		</p>
 
 		<p class="">
-			<label>卡号：</label> &nbsp;<input id="accNo" type="text" name="accNo" value="6216261000000000018" /><a class="cardcheck">check</a>
+			<label>卡号：</label> &nbsp;<input id="accNo" type="text" name="accNo" value="6216261000000000018" /><a style="cursor:pointer" class="cardcheck">check</a>
 		</p>
 		
 		<p class="phoneLab" style="display:none;">
-			<label>手机号：</label> &nbsp;<input id="phoneNo" type="text" name="phoneNo"/><a class="phoneNo">获取短信验证码</a>
+			<label>手机号：</label> &nbsp;<input id="phoneNo" type="text" name="phoneNo"/><a style="cursor:pointer" class="phoneNo">获取短信验证码</a>
 		</p>
 		
 		<p class="smsLab" style="display:none;">

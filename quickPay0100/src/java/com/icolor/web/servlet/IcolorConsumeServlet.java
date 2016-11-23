@@ -41,9 +41,7 @@ public class IcolorConsumeServlet  extends HttpServlet  {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		//String merId = req.getParameter("merId");
 		String orderId = req.getParameter("orderId");
-		//String txnTime = req.getParameter("txnTime");
 		String txnAmt = req.getParameter("txnAmt");
 		
 		String smsCode = req.getParameter("smsCode");
@@ -122,6 +120,12 @@ public class IcolorConsumeServlet  extends HttpServlet  {
 					//String accNo2 = AcpService.decryptData(accNo1, "UTF-8");  //解密卡号使用的证书是商户签名私钥证书acpsdk.signCert.path
 					//LogUtil.writeLog("解密后的卡号："+accNo2);
 					resp.getWriter().write("unionpay has accept the order["+orderId+"] successfully");
+					resp.getWriter().write("<hr>");
+					resp.getWriter().write("</br>");
+					String contextPath = req.getContextPath();
+					resp.getWriter().write("<a href='"+contextPath+"/pages/openAndConsume.jsp'>continue</a>");
+					resp.getWriter().write("</br>");
+					resp.getWriter().write("<a href='"+contextPath+"/index.jsp'>back home page</a>");
 				}else if(SDKConstants.RESP_TIMEOUT.equals(respCode)||
 						SDKConstants.RESP_UNKNOW.equals(respCode)||
 						SDKConstants.RESP_HANDLING.equals(respCode)){

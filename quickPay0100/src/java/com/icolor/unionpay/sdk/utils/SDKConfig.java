@@ -63,6 +63,8 @@ public class SDKConfig {
 
 	private String merId;
 	
+	private String orderFile;
+	
 	public static final String SDK_FRONT_URL = "acpsdk.frontTransUrl";
 	public static final String SDK_BACK_URL = "acpsdk.backTransUrl";
 	public static final String SDK_SIGNQ_URL = "acpsdk.singleQueryUrl";
@@ -102,6 +104,8 @@ public class SDKConfig {
 	public static final String SDK_CONNECTIONTIMEOUT = "acpsdk.connectionTimeout";
 	
 	public static final String SDK_READTIMEOUT = "acpsdk.readTimeOut";
+	
+	public static final String SDK_ORDER_FILE = "acpsdk.order.file";
 
 	/**
 	 * 
@@ -271,6 +275,11 @@ public class SDKConfig {
 		value = pro.getProperty(SDK_READTIMEOUT);
 		if (!SDKUtil.isEmpty(value)) {
 			this.readTimeout = Integer.parseInt(value.trim());
+		}
+		
+		value = pro.getProperty(SDK_ORDER_FILE);
+		if (!SDKUtil.isEmpty(value)) {
+			this.orderFile = value.trim();
 		}
 		
 	}
@@ -485,6 +494,14 @@ public class SDKConfig {
 
 	public void setReadTimeout(int readTimeout) {
 		this.readTimeout = readTimeout;
+	}
+
+	public String getOrderFile() {
+		return orderFile;
+	}
+
+	public void setOrderFile(String orderFile) {
+		this.orderFile = orderFile;
 	}
 
 

@@ -99,7 +99,7 @@ public class CertUtil {
 			keyStore = null;
 		}
 		try {
-			keyStore = getKeyInfo(CERTS_PFX, // SDKConfig.getConfig().getSignCertPath(),
+			keyStore = getKeyInfo(CERTS_PFX,
 					SDKConfig.getConfig().getSignCertPwd(), SDKConfig.getConfig().getSignCertType());
 			LogUtil.writeLog("InitSignCert Successful. CertId=[" + getSignCertId() + "]");
 		} catch (IOException e) {

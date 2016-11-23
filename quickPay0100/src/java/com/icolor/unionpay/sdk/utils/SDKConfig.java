@@ -26,6 +26,8 @@ import java.util.Properties;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.icolor.common.constant.QuickPayConstants;
+
 public class SDKConfig {
 
 	public static final String FILE_NAME = "acp_sdk.properties";
@@ -39,9 +41,7 @@ public class SDKConfig {
 	private String signCertPath;
 	private String signCertPwd;
 	private String signCertType;
-	//private String encryptCertPath;
 
-	private String signCertDir;
 	private String encryptTrackCertPath;
 	private String encryptTrackKeyModulus;
 	private String encryptTrackKeyExponent;
@@ -57,8 +57,13 @@ public class SDKConfig {
 	
 	private String callbackFrontEnd;
 	private String callbackBackEnd;
+	
+	private int connectionTimeout;
+	private int readTimeout;
 
 	private String merId;
+	
+	private String orderFile;
 	
 	public static final String SDK_FRONT_URL = "acpsdk.frontTransUrl";
 	public static final String SDK_BACK_URL = "acpsdk.backTransUrl";
@@ -95,7 +100,12 @@ public class SDKConfig {
 	private static final String SDK_CALLBACK_BACKEND="acpsdk.callback.backend";
 	
 	private static final String SDK_MERID = "acpsdk.merId";
-
+	
+	public static final String SDK_CONNECTIONTIMEOUT = "acpsdk.connectionTimeout";
+	
+	public static final String SDK_READTIMEOUT = "acpsdk.readTimeOut";
+	
+	public static final String SDK_ORDER_FILE = "acpsdk.order.file";
 
 	/**
 	 * 
@@ -108,51 +118,18 @@ public class SDKConfig {
 		return config;
 	}
 
-	public void loadPropertiesFromPath(String rootPath) {
-		if (StringUtils.isNotBlank(rootPath)) {
-			File file = new File(rootPath + File.separator + FILE_NAME);
-			InputStream in = null;
-			if (file.exists()) {
-				try {
-					in = new FileInputStream(file);
-					BufferedReader bf = new BufferedReader(
-							new InputStreamReader(in, "utf-8"));
-					properties = new Properties();
-					properties.load(bf);
-					loadProperties(properties);
-				} catch (FileNotFoundException e) {
-					LogUtil.writeErrorLog(e.getMessage(), e);
-				} catch (IOException e) {
-					LogUtil.writeErrorLog(e.getMessage(), e);
-				} finally {
-					if (null != in) {
-						try {
-							in.close();
-						} catch (IOException e) {
-							LogUtil.writeErrorLog(e.getMessage(), e);
-						}
-					}
-				}
-			}
-		} else {
-			loadPropertiesFromSrc();
-		}
-
-	}
-
 	/**
-	 * ��classpath·���¼������ò���
+	 * load properties from class path
 	 */
 	public void loadPropertiesFromSrc() {
 		InputStream in = null;
 		try {
-			// Properties pro = null;
-			LogUtil.writeLog("��classpath: " +SDKConfig.class.getClassLoader().getResource("").getPath()+" ��ȡ�����ļ�"+FILE_NAME);
+			LogUtil.writeLog("123 classpath: " +SDKConfig.class.getClassLoader().getResource("").getPath()+" aaaaaa " +FILE_NAME);
 			in = SDKConfig.class.getClassLoader()
 					.getResourceAsStream(FILE_NAME);
 			if (null != in) {
 				BufferedReader bf = new BufferedReader(new InputStreamReader(
-						in, "utf-8"));
+						in, QuickPayConstants.ENCODING_UTF8));
 				properties = new Properties();
 				try {
 					properties.load(bf);
@@ -160,7 +137,7 @@ public class SDKConfig {
 					throw e;
 				}
 			} else {
-				LogUtil.writeErrorLog(FILE_NAME + "�����ļ�δ����classpathָ����Ŀ¼�� "+SDKConfig.class.getClassLoader().getResource("").getPath()+" �ҵ�!");
+				LogUtil.writeErrorLog(FILE_NAME + " can't find at  "+SDKConfig.class.getClassLoader().getResource("").getPath()+" !");
 				return;
 			}
 			loadProperties(properties);
@@ -178,32 +155,28 @@ public class SDKConfig {
 	}
 
 	/**
-	 * ���ݴ���� {@link #load(java.util.Properties)}�����������ò���
+	 * load(java.util.Properties)}
 	 * 
 	 * @param pro
 	 */
 	public void loadProperties(Properties pro) {
-		LogUtil.writeLog("��ʼ�������ļ��м���������");
 		String value = null;
 		value = pro.getProperty(SDK_SINGLEMODE);
 		if (SDKUtil.isEmpty(value) || SDKConstants.TRUE_STRING.equals(value)) {
 			this.singleMode = SDKConstants.TRUE_STRING;
-			LogUtil.writeLog("��֤��ģʽ��ʹ�������ļ����õ�˽Կǩ��֤�飬SingleCertMode:[" + this.singleMode + "]");
+			LogUtil.writeLog("SingleCertMode:[" + this.singleMode + "]");
 			
 			value = pro.getProperty(SDK_SIGNCERT_PWD);
 			if (!SDKUtil.isEmpty(value)) {
 				this.signCertPwd = value.trim();
-				LogUtil.writeLog("�����˽Կǩ��֤������==>"+SDK_SIGNCERT_PWD +" �Ѽ���");
 			}
 			value = pro.getProperty(SDK_SIGNCERT_TYPE);
 			if (!SDKUtil.isEmpty(value)) {
 				this.signCertType = value.trim();
-				LogUtil.writeLog("�����˽Կǩ��֤������==>"+SDK_SIGNCERT_TYPE +"==>"+ value+" �Ѽ���");
 			}
 		} else {
-			// ��֤��ģʽ
 			this.singleMode = SDKConstants.FALSE_STRING;
-			LogUtil.writeLog("��֤��ģʽ������Ҫ���������ļ������õ�˽Կǩ��֤�飬SingleMode:[" + this.singleMode + "]");
+			LogUtil.writeLog("SingleMode:[" + this.singleMode + "]");
 		}
 		
 		value = pro.getProperty(SDK_FRONT_URL);
@@ -293,6 +266,22 @@ public class SDKConfig {
 		if (!SDKUtil.isEmpty(value)) {
 			this.merId = value.trim();
 		}
+		
+		value = pro.getProperty(SDK_CONNECTIONTIMEOUT);
+		if (!SDKUtil.isEmpty(value)) {
+			this.connectionTimeout = Integer.parseInt(value.trim());
+		}
+		
+		value = pro.getProperty(SDK_READTIMEOUT);
+		if (!SDKUtil.isEmpty(value)) {
+			this.readTimeout = Integer.parseInt(value.trim());
+		}
+		
+		value = pro.getProperty(SDK_ORDER_FILE);
+		if (!SDKUtil.isEmpty(value)) {
+			this.orderFile = value.trim();
+		}
+		
 	}
 
 	public String getFrontRequestUrl() {
@@ -365,14 +354,6 @@ public class SDKConfig {
 
 	public void setFileTransUrl(String fileTransUrl) {
 		this.fileTransUrl = fileTransUrl;
-	}
-
-	public String getSignCertDir() {
-		return signCertDir;
-	}
-
-	public void setSignCertDir(String signCertDir) {
-		this.signCertDir = signCertDir;
 	}
 
 	public Properties getProperties() {
@@ -497,6 +478,30 @@ public class SDKConfig {
 
 	public void setMerId(String merId) {
 		this.merId = merId;
+	}
+
+	public int getConnectionTimeout() {
+		return connectionTimeout;
+	}
+
+	public void setConnectionTimeout(int connectionTimeout) {
+		this.connectionTimeout = connectionTimeout;
+	}
+
+	public int getReadTimeout() {
+		return readTimeout;
+	}
+
+	public void setReadTimeout(int readTimeout) {
+		this.readTimeout = readTimeout;
+	}
+
+	public String getOrderFile() {
+		return orderFile;
+	}
+
+	public void setOrderFile(String orderFile) {
+		this.orderFile = orderFile;
 	}
 
 

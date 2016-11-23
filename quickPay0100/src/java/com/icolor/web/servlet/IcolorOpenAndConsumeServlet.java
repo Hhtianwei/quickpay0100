@@ -15,6 +15,7 @@ import com.icolor.unionpay.sdk.utils.AcpService;
 import com.icolor.unionpay.sdk.utils.IcolorDateFromatUtils;
 import com.icolor.unionpay.sdk.utils.LogUtil;
 import com.icolor.unionpay.sdk.utils.SDKConfig;
+import com.icolor.unionpay.sdk.utils.SDKConstants;
 
 
 public class IcolorOpenAndConsumeServlet  extends HttpServlet  {
@@ -43,11 +44,11 @@ public class IcolorOpenAndConsumeServlet  extends HttpServlet  {
 		/***银联全渠道系统，产品参数，除了encoding自行选择外其他不需修改***/
 		contentData.put("version", QuickPayConstants.VERSION);                  //版本号
 		contentData.put("encoding", QuickPayConstants.ENCODING_UTF8);                //字符集编码 可以使用UTF-8,GBK两种方式
-		contentData.put("signMethod", "01");                           //签名方法 目前只支持01-RSA方式证书加密
-		contentData.put("txnType", "01");                              //交易类型 01-消费
-		contentData.put("txnSubType", "01");                           //交易子类型 01-消费
-		contentData.put("bizType", "000301");                          //业务类型 认证支付2.0
-		contentData.put("channelType", "07");                          //渠道类型07-PC
+		contentData.put("signMethod", SDKConstants.SIGNMETHOD);                           //签名方法 目前只支持01-RSA方式证书加密
+		contentData.put("txnType", SDKConstants.TXNTYPE_PAY);                              //交易类型 01-消费
+		contentData.put("txnSubType", SDKConstants.TXNSUBTYPE_CONSUME);                           //交易子类型 01-消费
+		contentData.put("bizType", SDKConstants.BIZTYPE_CERTIFIED_PAYMENTS);                          //业务类型 认证支付2.0
+		contentData.put("channelType", SDKConstants.CHANNEL_TYPE_PC);                          //渠道类型07-PC
 		
 		/***商户接入参数***/
 		String merId = SDKConfig.getConfig().getMerId();

@@ -41,9 +41,7 @@ public class IcolorConsumeServlet  extends HttpServlet  {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		//String merId = req.getParameter("merId");
 		String orderId = req.getParameter("orderId");
-		//String txnTime = req.getParameter("txnTime");
 		String txnAmt = req.getParameter("txnAmt");
 		
 		String smsCode = req.getParameter("smsCode");
@@ -67,7 +65,7 @@ public class IcolorConsumeServlet  extends HttpServlet  {
 		contentData.put("txnTime",IcolorDateFromatUtils.getCurrentTime());        				   //订单发送时间，格式为YYYYMMDDhhmmss，必须取当前时间，否则会报txnTime无效
 		contentData.put("currencyCode", SDKConstants.CURRENCYCODE);						   //交易币种（境内商户一般是156 人民币）
 		contentData.put("txnAmt", txnAmt);							   //交易金额，单位分，不要带小数点
-		contentData.put("accType", "01");//SDKConstants.ACCTYPE);     //文档中无此参数                         //账号类型
+		//contentData.put("accType", "01");//SDKConstants.ACCTYPE);     //文档中无此参数                         //账号类型
 		
 		//消费：交易要素卡号+验证码看业务配置(默认要短信验证码)。
 		Map<String,String> customerInfoMap = new HashMap<String,String>();
@@ -93,7 +91,7 @@ public class IcolorConsumeServlet  extends HttpServlet  {
 		//注意:1.需设置为外网能访问，否则收不到通知    2.http https均可  3.收单后台通知后需要10秒内返回http200或302状态码 
 		//    4.如果银联通知服务器发送通知后10秒内未收到返回状态码或者应答码非http200，那么银联会间隔一段时间再次发送。总共发送5次，每次的间隔时间为0,1,2,4分钟。
 		//    5.后台通知地址如果上送了带有？的参数，例如：http://abc/web?a=b&c=d 在后台通知处理程序验证签名之前需要编写逻辑将这些字段去掉再验签，否则将会验签失败
-		contentData.put("backUrl", SDKConfig.getConfig().getBackRequestUrl());
+		contentData.put("backUrl", SDKConfig.getConfig().getCallbackBackEnd());
 
 		//分期付款用法（商户自行设计分期付款展示界面）：
 		//修改txnSubType=03，增加instalTransInfo域
@@ -122,6 +120,12 @@ public class IcolorConsumeServlet  extends HttpServlet  {
 					//String accNo2 = AcpService.decryptData(accNo1, "UTF-8");  //解密卡号使用的证书是商户签名私钥证书acpsdk.signCert.path
 					//LogUtil.writeLog("解密后的卡号："+accNo2);
 					resp.getWriter().write("unionpay has accept the order["+orderId+"] successfully");
+					resp.getWriter().write("<hr>");
+					resp.getWriter().write("</br>");
+					String contextPath = req.getContextPath();
+					resp.getWriter().write("<a href='"+contextPath+"/pages/openAndConsume.jsp'>continue</a>");
+					resp.getWriter().write("</br>");
+					resp.getWriter().write("<a href='"+contextPath+"/index.jsp'>back home page</a>");
 				}else if(SDKConstants.RESP_TIMEOUT.equals(respCode)||
 						SDKConstants.RESP_UNKNOW.equals(respCode)||
 						SDKConstants.RESP_HANDLING.equals(respCode)){

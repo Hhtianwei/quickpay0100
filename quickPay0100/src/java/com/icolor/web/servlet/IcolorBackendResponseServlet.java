@@ -8,18 +8,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.abin.facade.ws.mail.function.FileOperation;
 import com.icolor.unionpay.sdk.utils.AcpService;
 import com.icolor.unionpay.sdk.utils.LogUtil;
+import com.icolor.unionpay.sdk.utils.SDKConfig;
 import com.icolor.unionpay.sdk.utils.SDKConstants;
 import com.icolor.unionpay.sdk.utils.SDKUtil;
 
 
 public class IcolorBackendResponseServlet extends HttpServlet {
-
-	@Override
-	public void init() throws ServletException {
-		super.init();
-	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
@@ -31,7 +28,7 @@ public class IcolorBackendResponseServlet extends HttpServlet {
 		// 获取银联通知服务器发送的后台通知参数
 		Map<String, String> reqParam = SDKUtil.getAllRequestParam(req);
 
-		LogUtil.printRequestLog(reqParam);
+		//LogUtil.printRequestLog(reqParam);
 
 		Map<String, String> valideData = null;
 		
@@ -49,9 +46,20 @@ public class IcolorBackendResponseServlet extends HttpServlet {
 		} else {
 			LogUtil.writeLog("验证签名结果[成功].");
 			// 交易成功，更新商户订单状态
-
+			String respCode = valideData.get("respCode");
+			String respMsg = valideData.get("respMsg");
+			
 			String orderId = valideData.get("orderId"); // 获取后台通知的数据，其他字段也可用类似方式获取
-
+			
+			if(SDKConstants.RESP_SUCCESS.equals(respCode)){
+				LogUtil.writeMessage("order:" + orderId +" paid successfully");
+				LogUtil.writeMessage(String.format("write order[%s] to file", orderId));
+				String txntime = valideData.get("txnTime");
+				String content = orderId +","+ txntime;
+				FileOperation.contentToTxt(SDKConfig.getConfig().getOrderFile(), content);
+			}else{
+				LogUtil.writeMessage("order:" + orderId +" paid failure,reqspCode:" + respCode + ",errorMsg is :" + respMsg);
+			}
 		}
 		LogUtil.writeLog("BackRcvResponse接收后台通知结束");
 		// 返回给银联服务器http 200状态码

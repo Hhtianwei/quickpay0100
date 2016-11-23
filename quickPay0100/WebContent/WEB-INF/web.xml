@@ -22,7 +22,7 @@
   <servlet>
     <servlet-name>autoLoadServlet</servlet-name>
     <servlet-class>com.icolor.web.servlet.AutoLoadServlet</servlet-class>
-    <load-on-startup>0</load-on-startup>
+    <load-on-startup>1</load-on-startup>
   </servlet>
   
   <servlet>
@@ -55,9 +55,12 @@
   	<servlet-class>com.icolor.web.servlet.IcolorBackendResponseServlet</servlet-class>
   </servlet>
   
+   <servlet>
+  	<servlet-name>icolorQueryOrderServlet</servlet-name>
+  	<servlet-class>com.icolor.web.servlet.IcolorQueryOrderServlet</servlet-class>
+  </servlet>
   
-  
-   <servlet-mapping>
+  <servlet-mapping>
     <servlet-name>autoLoadServlet</servlet-name>
     <url-pattern>/autoLoadServlet</url-pattern>
   </servlet-mapping>
@@ -90,6 +93,11 @@
   <servlet-mapping>
   	<servlet-name>icolorFrontendResponseServlet</servlet-name>
   	<url-pattern>/icolorFrontendResponseServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+  	<servlet-name>icolorQueryOrderServlet</servlet-name>
+  	<url-pattern>/icolorQueryOrderServlet</url-pattern>
   </servlet-mapping>
   
 </web-app>

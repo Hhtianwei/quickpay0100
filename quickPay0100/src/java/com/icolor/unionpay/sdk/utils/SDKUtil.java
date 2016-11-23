@@ -30,11 +30,13 @@ public class SDKUtil {
 		if (isEmpty(encoding)) {
 			encoding = "UTF-8";
 		}
+		
 		// 设置签名证书序列
 		data.put(SDKConstants.param_certId, CertUtil.getSignCertId());
 		// 将Map信息转换成key1=value1&key2=value2的形
 		String stringData = coverMap2String(data);
 		LogUtil.writeLog("待签名请求报文串:[" + stringData + "]");
+		
 		/**
 		 * 签名\base64编码
 		 */
@@ -350,7 +352,7 @@ public class SDKUtil {
 			String value = request.getParameter(en);
 			
 			// 在报文上送时，如果字段的值为空，则不上送<下面的处理为在获取所有参数数据时，判断若值为空，则删除这个字段
-			if (null == res.get(en) || "".equals(res.get(en))) {
+			if (null == value || "".equals(value)) {
 				continue;
 			}
 			res.put(en, value);

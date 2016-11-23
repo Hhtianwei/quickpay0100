@@ -16,19 +16,19 @@ import com.icolor.unionpay.sdk.utils.SDKConstants;
 import com.icolor.unionpay.sdk.utils.SDKUtil;
 
 
-public class IcolorBackendResponseServlet extends HttpServlet {
+public class IcolorRefundResponseServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 
-		LogUtil.writeLog("BackRcvResponse接收后台通知开始");
+		LogUtil.writeLog("BackRcvResponse接收 refund 后台通知开始");
 
 		String encoding = req.getParameter(SDKConstants.PARAM_ENCODING);
 		// 获取银联通知服务器发送的后台通知参数
 		Map<String, String> reqParam = SDKUtil.getAllRequestParam(req);
 
-		//LogUtil.printRequestLog(reqParam);
+		LogUtil.printRequestLog(reqParam);
 
 		Map<String, String> valideData = null;
 		
@@ -51,17 +51,19 @@ public class IcolorBackendResponseServlet extends HttpServlet {
 			
 			String orderId = valideData.get("orderId"); // 获取后台通知的数据，其他字段也可用类似方式获取
 			
+			String origQryId = valideData.get("origQryId");//支付交易流水号
+			
 			if(SDKConstants.RESP_SUCCESS.equals(respCode)){
-				LogUtil.writeMessage("order:" + orderId +" paid successfully");
+				LogUtil.writeMessage("order:" + orderId +" refund successfully");
 				LogUtil.writeMessage(String.format("write order[%s] to file", orderId));
 				
 				String txntime = valideData.get("txnTime");
 				String txnAmt = valideData.get("txnAmt");
 				String queryId = valideData.get("queryId");
-				String content = "[orderId:" + orderId +",queryId:"+queryId+ ",txnAmt:"+txnAmt +",txntime:"+txntime+"]";
-				FileOperation.contentToTxt(SDKConfig.getConfig().getOrderFile(), content);
+				String content = "refundId:" + orderId +",refundQueryId:"+queryId+ ",refundTxntime:"+txntime+",refundTxnAmt:" + txnAmt;
+				FileOperation.updateOrderInfo(SDKConfig.getConfig().getOrderFile(),origQryId, content);
 			}else{
-				LogUtil.writeMessage("order:" + orderId +" paid failure,reqspCode:" + respCode + ",errorMsg is :" + respMsg);
+				LogUtil.writeMessage("refundId:" + orderId +" refund failure,reqspCode:" + respCode + ",errorMsg is :" + respMsg);
 			}
 		}
 		LogUtil.writeLog("BackRcvResponse接收后台通知结束");

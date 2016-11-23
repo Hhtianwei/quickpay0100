@@ -355,11 +355,15 @@ public class SDKConstants {
 	
 	public static final String TXNTYPE_QUERY ="00";
 	
+	public static final String TXNTYPE_REFUND ="04";
+	
 	public static final String TXNTYPE_SEND_SMS="77";
 
 	public static final String TXNSUBTYPE_BY_ACCOUNT = "00";
 	
 	public static final String TXNSUBTYPE_QUERY = "00";
+	
+	public static final String TXNSUBTYPE_REFUND = "00";
 	
 	public static final String TXNSUBTYPE_CONSUME = "01";
 	

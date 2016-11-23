@@ -33,11 +33,6 @@ import com.icolor.unionpay.sdk.utils.SDKUtil;
 public class IcolorSendConsumeSMSServlet  extends HttpServlet  {
 
 	@Override
-	public void init(ServletConfig config) throws ServletException {
-		super.init();
-	}
-	
-	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		//String merId = req.getParameter("merId");

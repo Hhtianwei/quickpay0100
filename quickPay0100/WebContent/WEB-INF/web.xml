@@ -60,6 +60,16 @@
   	<servlet-class>com.icolor.web.servlet.IcolorQueryOrderServlet</servlet-class>
   </servlet>
   
+  <servlet>
+  	<servlet-name>icolorRefundServlet</servlet-name>
+  	<servlet-class>com.icolor.web.servlet.IcolorRefundServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
+  	<servlet-name>icolorRefundResponseServlet</servlet-name>
+  	<servlet-class>com.icolor.web.servlet.IcolorRefundResponseServlet</servlet-class>
+  </servlet>
+  
   <servlet-mapping>
     <servlet-name>autoLoadServlet</servlet-name>
     <url-pattern>/autoLoadServlet</url-pattern>
@@ -98,6 +108,16 @@
   <servlet-mapping>
   	<servlet-name>icolorQueryOrderServlet</servlet-name>
   	<url-pattern>/icolorQueryOrderServlet</url-pattern>
+  </servlet-mapping>
+  
+    <servlet-mapping>
+  	<servlet-name>icolorRefundServlet</servlet-name>
+  	<url-pattern>/icolorRefundServlet</url-pattern>
+  </servlet-mapping>
+  
+    <servlet-mapping>
+  	<servlet-name>icolorRefundResponseServlet</servlet-name>
+  	<url-pattern>/icolorRefundResponseServlet</url-pattern>
   </servlet-mapping>
   
 </web-app>

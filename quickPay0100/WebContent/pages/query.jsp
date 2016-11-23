@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
-<%@ page import="com.abin.facade.ws.mail.function.FileOperation,com.icolor.unionpay.sdk.utils.SDKConfig" %>
+<%@ page import="com.icolor.unionpay.file.FileOperation,com.icolor.unionpay.sdk.utils.SDKConfig" %>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -16,12 +16,12 @@ border-radius: 5px;
 -webkit-border-radius: 5px;
 -moz-border-radius: 5px;
 }
-.smart-green h1 {
+.smart-green h1 {	
 font: 24px "Trebuchet MS", Arial, Helvetica, sans-serif;
 padding: 20px 0px 20px 40px;
 display: block;
 margin: -30px -30px 10px -30px;
-color: #FFF;
+color: #FFF; 
 background: #9DC45F;
 text-shadow: 1px 1px 1px #949494;
 border-radius: 5px 5px 0px 0px;

@@ -57,6 +57,7 @@ public class SDKConfig {
 	
 	private String callbackFrontEnd;
 	private String callbackBackEnd;
+	private String callbackRefund;
 	
 	private int connectionTimeout;
 	private int readTimeout;
@@ -106,6 +107,8 @@ public class SDKConfig {
 	public static final String SDK_READTIMEOUT = "acpsdk.readTimeOut";
 	
 	public static final String SDK_ORDER_FILE = "acpsdk.order.file";
+	
+	public static final String SDK_CALLBACK_REFUND = "acpsdk.callback.refund";
 
 	/**
 	 * 
@@ -282,6 +285,10 @@ public class SDKConfig {
 			this.orderFile = value.trim();
 		}
 		
+		value = pro.getProperty(SDK_CALLBACK_REFUND);
+		if (!SDKUtil.isEmpty(value)) {
+			this.callbackRefund = value.trim();
+		}
 	}
 
 	public String getFrontRequestUrl() {
@@ -502,6 +509,14 @@ public class SDKConfig {
 
 	public void setOrderFile(String orderFile) {
 		this.orderFile = orderFile;
+	}
+
+	public String getCallbackRefund() {
+		return callbackRefund;
+	}
+
+	public void setCallbackRefund(String callbackRefund) {
+		this.callbackRefund = callbackRefund;
 	}
 
 
